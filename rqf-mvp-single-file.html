@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rural Quote Finder</title>
+  <style>
+:root {
+  --bg: #f4efe5;
+  --card: #fffaf0;
+  --ink: #16130f;
+  --muted: #6f675b;
+  --line: #ded2bf;
+  --black: #11100d;
+  --accent: #b97735;
+  --accent-dark: #7b431a;
+  --radius: 22px;
+  --shadow: 0 18px 50px rgba(30, 22, 12, 0.12);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+a { color: inherit; text-decoration: none; }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px clamp(18px, 4vw, 60px);
+  background: rgba(244, 239, 229, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-mark {
+  width: 46px; height: 46px; border-radius: 14px;
+  background: var(--black); color: var(--card);
+  display: grid; place-items: center; font-weight: 900; letter-spacing: -1px;
+}
+.brand span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+nav { display: flex; gap: 18px; font-weight: 700; font-size: 14px; }
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(42px, 8vw, 96px) clamp(18px, 4vw, 60px);
+  align-items: center;
+}
+.eyebrow { color: var(--accent-dark); font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; font-size: 12px; }
+h1 { font-size: clamp(42px, 7vw, 78px); line-height: 0.95; letter-spacing: -0.06em; margin: 10px 0 18px; max-width: 860px; }
+h2 { font-size: clamp(30px, 4vw, 48px); line-height: 1; letter-spacing: -0.045em; margin: 8px 0 14px; }
+h3 { margin: 0 0 12px; }
+.lead { color: var(--muted); font-size: 20px; line-height: 1.5; max-width: 680px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn {
+  border: 1px solid var(--black);
+  background: transparent;
+  border-radius: 999px;
+  padding: 13px 18px;
+  font-weight: 900;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn.primary { background: var(--black); color: var(--card); }
+.btn.secondary { background: transparent; }
+.btn.small { padding: 9px 13px; border-color: var(--line); }
+.btn.full { width: 100%; }
+.card, .hero-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(20px, 3vw, 32px);
+}
+.hero-card ol { padding-left: 22px; line-height: 1.8; color: var(--muted); font-weight: 700; }
+.section { padding: clamp(42px, 7vw, 78px) clamp(18px, 4vw, 60px); }
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(300px, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.reverse { grid-template-columns: minmax(300px, 1fr) minmax(0, 0.75fr); }
+.reverse > div:first-child { order: 2; }
+.form-card { display: grid; gap: 16px; }
+label { display: grid; gap: 7px; font-weight: 900; }
+input, select, textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 13px 14px;
+  background: #fffef8;
+  color: var(--ink);
+  font: inherit;
+}
+textarea { min-height: 110px; resize: vertical; }
+.product-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.product-row {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 0.7fr 42px;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.remove {
+  border: 1px solid var(--line);
+  background: #fffef8;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 22px;
+}
+.fine-print { color: var(--muted); font-size: 13px; margin: 0; }
+.section-heading { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 22px; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.list { display: grid; gap: 12px; }
+.item {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px;
+  background: #fffef8;
+}
+.item strong { display: block; margin-bottom: 6px; }
+.item p { margin: 3px 0; color: var(--muted); font-size: 14px; }
+footer { padding: 28px clamp(18px, 4vw, 60px); color: var(--muted); border-top: 1px solid var(--line); }
+@media (max-width: 850px) {
+  .site-header { align-items: flex-start; flex-direction: column; }
+  nav { width: 100%; justify-content: space-between; }
+  .hero, .split, .reverse, .dashboard-grid { grid-template-columns: 1fr; }
+  .reverse > div:first-child { order: 0; }
+  .product-row { grid-template-columns: 1fr; }
+  .remove { height: 42px; }
+  .section-heading { align-items: start; flex-direction: column; }
+}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark">RQF</div>
+      <div>
+        <strong>Rural Quote Finder</strong>
+        <span>Modern tools for old-school problems</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#request">Request Quote</a>
+      <a href="#stores">Stores</a>
+      <a href="#admin">Admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Quote-ready farmers. Local rural stores. No phone tag.</p>
+        <h1>Get rural supply quotes without chasing stores all day.</h1>
+        <p class="lead">Submit one request with multiple products and we’ll help get it in front of nearby rural stores who can price it properly.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#request">Request a Quote</a>
+          <a class="btn secondary" href="#stores">Register Your Store</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h2>How it works</h2>
+        <ol>
+          <li>Add the products you need.</li>
+          <li>Send one quote request.</li>
+          <li>Nearby stores respond with price and availability.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section split" id="request">
+      <div>
+        <p class="eyebrow">For farmers</p>
+        <h2>Request a quote</h2>
+        <p>Start simple. Add fencing, animal health, water equipment, fertiliser, seed or general rural supplies into one request.</p>
+      </div>
+
+      <form id="quoteForm" class="card form-card">
+        <label>Full name
+          <input required name="farmerName" placeholder="e.g. Chris Mansell" />
+        </label>
+        <label>Phone
+          <input required name="phone" placeholder="e.g. 04xx xxx xxx" />
+        </label>
+        <label>Email
+          <input type="email" name="email" placeholder="you@example.com" />
+        </label>
+        <label>Location / town
+          <input required name="location" placeholder="e.g. Wagga Wagga NSW" />
+        </label>
+        <label>Preferred quote radius
+          <select name="radius">
+            <option>25km</option>
+            <option selected>50km</option>
+            <option>75km</option>
+            <option>100km</option>
+          </select>
+        </label>
+
+        <div class="product-header">
+          <h3>Products</h3>
+          <button type="button" class="btn small" id="addProduct">+ Add product</button>
+        </div>
+        <div id="products"></div>
+
+        <label>Notes
+          <textarea name="notes" placeholder="Brand preferences, delivery needs, timing, etc."></textarea>
+        </label>
+        <button class="btn primary full" type="submit">Submit Quote Request</button>
+        <p class="fine-print">This MVP stores requests in your browser for testing. The next step is connecting Supabase/email notifications.</p>
+      </form>
+    </section>
+
+    <section class="section split reverse" id="stores">
+      <div>
+        <p class="eyebrow">For rural stores</p>
+        <h2>Receive quote-ready local leads</h2>
+        <p>Register your store so quote requests can be routed to the right local suppliers as the system develops.</p>
+      </div>
+
+      <form id="storeForm" class="card form-card">
+        <label>Store name
+          <input required name="storeName" placeholder="e.g. Wagga Rural Supplies" />
+        </label>
+        <label>Contact person
+          <input required name="contactName" placeholder="e.g. Sarah" />
+        </label>
+        <label>Phone
+          <input required name="storePhone" placeholder="e.g. 02 xxxx xxxx" />
+        </label>
+        <label>Email
+          <input type="email" name="storeEmail" placeholder="store@example.com" />
+        </label>
+        <label>Town / location
+          <input required name="storeLocation" placeholder="e.g. Wagga Wagga NSW" />
+        </label>
+        <label>Service radius
+          <select name="serviceRadius">
+            <option>25km</option>
+            <option selected>50km</option>
+            <option>75km</option>
+            <option>100km</option>
+          </select>
+        </label>
+        <button class="btn primary full" type="submit">Register Store Interest</button>
+      </form>
+    </section>
+
+    <section class="section" id="admin">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Operator dashboard</p>
+          <h2>Admin view</h2>
+          <p>Use this to test requests and store registrations while the workflow is manual.</p>
+        </div>
+        <button class="btn secondary" id="clearData">Clear test data</button>
+      </div>
+      <div class="dashboard-grid">
+        <div class="card">
+          <h3>Quote Requests</h3>
+          <div id="quoteList" class="list"></div>
+        </div>
+        <div class="card">
+          <h3>Store Registrations</h3>
+          <div id="storeList" class="list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Rural Quote Finder acts as an independent facilitator only. Pricing, availability, suitability, and final transactions are the responsibility of the parties involved.</p>
+  </footer>
+
+  <template id="productTemplate">
+    <div class="product-row">
+      <select class="category">
+        <option>Fencing</option>
+        <option>Animal Health</option>
+        <option>Seed</option>
+        <option>Fertiliser</option>
+        <option>Water Equipment</option>
+        <option>General Merchandise</option>
+        <option>Machinery Parts</option>
+      </select>
+      <input class="product" placeholder="Product / description" required />
+      <input class="quantity" placeholder="Qty" required />
+      <button type="button" class="remove">×</button>
+    </div>
+  </template>
+
+  <script>
+const quoteKey = 'rqf_quotes';
+const storeKey = 'rqf_stores';
+
+const quoteForm = document.getElementById('quoteForm');
+const storeForm = document.getElementById('storeForm');
+const products = document.getElementById('products');
+const addProduct = document.getElementById('addProduct');
+const template = document.getElementById('productTemplate');
+const quoteList = document.getElementById('quoteList');
+const storeList = document.getElementById('storeList');
+const clearData = document.getElementById('clearData');
+
+function getData(key) {
+  return JSON.parse(localStorage.getItem(key) || '[]');
+}
+
+function setData(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function addProductRow() {
+  const row = template.content.cloneNode(true);
+  row.querySelector('.remove').addEventListener('click', (event) => {
+    event.target.closest('.product-row').remove();
+    if (!products.children.length) addProductRow();
+  });
+  products.appendChild(row);
+}
+
+function collectProducts() {
+  return [...products.querySelectorAll('.product-row')].map(row => ({
+    category: row.querySelector('.category').value,
+    product: row.querySelector('.product').value,
+    quantity: row.querySelector('.quantity').value,
+  })).filter(item => item.product || item.quantity);
+}
+
+function render() {
+  const quotes = getData(quoteKey).reverse();
+  const stores = getData(storeKey).reverse();
+
+  quoteList.innerHTML = quotes.length ? quotes.map(q => `
+    <div class="item">
+      <strong>${escapeHtml(q.farmerName)} — ${escapeHtml(q.location)}</strong>
+      <p><b>Phone:</b> ${escapeHtml(q.phone)} ${q.email ? ` | <b>Email:</b> ${escapeHtml(q.email)}` : ''}</p>
+      <p><b>Radius:</b> ${escapeHtml(q.radius)}</p>
+      <p><b>Products:</b> ${q.products.map(p => `${escapeHtml(p.quantity)} ${escapeHtml(p.product)} (${escapeHtml(p.category)})`).join(', ')}</p>
+      ${q.notes ? `<p><b>Notes:</b> ${escapeHtml(q.notes)}</p>` : ''}
+      <p><b>Submitted:</b> ${new Date(q.createdAt).toLocaleString()}</p>
+    </div>
+  `).join('') : '<p class="fine-print">No quote requests yet.</p>';
+
+  storeList.innerHTML = stores.length ? stores.map(s => `
+    <div class="item">
+      <strong>${escapeHtml(s.storeName)} — ${escapeHtml(s.storeLocation)}</strong>
+      <p><b>Contact:</b> ${escapeHtml(s.contactName)}</p>
+      <p><b>Phone:</b> ${escapeHtml(s.storePhone)} ${s.storeEmail ? ` | <b>Email:</b> ${escapeHtml(s.storeEmail)}` : ''}</p>
+      <p><b>Service radius:</b> ${escapeHtml(s.serviceRadius)}</p>
+      <p><b>Submitted:</b> ${new Date(s.createdAt).toLocaleString()}</p>
+    </div>
+  `).join('') : '<p class="fine-print">No store registrations yet.</p>';
+}
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>'"]/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;'
+  }[char]));
+}
+
+quoteForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = new FormData(quoteForm);
+  const quote = Object.fromEntries(form.entries());
+  quote.products = collectProducts();
+  quote.createdAt = new Date().toISOString();
+
+  if (!quote.products.length) {
+    alert('Please add at least one product.');
+    return;
+  }
+
+  const quotes = getData(quoteKey);
+  quotes.push(quote);
+  setData(quoteKey, quotes);
+  quoteForm.reset();
+  products.innerHTML = '';
+  addProductRow();
+  render();
+  alert('Quote request saved. In the next version, this can email you automatically.');
+});
+
+storeForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const form = new FormData(storeForm);
+  const store = Object.fromEntries(form.entries());
+  store.createdAt = new Date().toISOString();
+
+  const stores = getData(storeKey);
+  stores.push(store);
+  setData(storeKey, stores);
+  storeForm.reset();
+  render();
+  alert('Store registration saved.');
+});
+
+addProduct.addEventListener('click', addProductRow);
+clearData.addEventListener('click', () => {
+  if (!confirm('Clear all local test data?')) return;
+  localStorage.removeItem(quoteKey);
+  localStorage.removeItem(storeKey);
+  render();
+});
+
+addProductRow();
+render();
+
+</script>
+</body>
+</html>
