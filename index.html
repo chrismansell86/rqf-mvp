@@ -8,64 +8,283 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <style>
-    body{
+    :root {
+      --bg: #f4efe5;
+      --card: #ffffff;
+      --text: #1d1b16;
+      --muted: #6f6758;
+      --dark: #16130f;
+      --line: #ded5c7;
+      --soft: #faf7f1;
+      --success: #14532d;
+      --warning: #92400e;
+      --danger: #7f1d1d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: Arial, sans-serif;
-      background:#f4efe5;
-      margin:0;
-      padding:20px;
-      color:#1d1b16;
+      background: var(--bg);
+      margin: 0;
+      padding: 20px;
+      color: var(--text);
     }
 
-    .container{
-      max-width:800px;
-      margin:auto;
+    .container {
+      max-width: 980px;
+      margin: auto;
     }
 
-    .card{
-      background:white;
-      padding:20px;
-      border-radius:16px;
-      margin-bottom:20px;
-      box-shadow:0 4px 14px rgba(0,0,0,0.08);
+    .hero {
+      background: var(--dark);
+      color: white;
+      padding: 28px 22px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.16);
     }
 
-    h1,h2{
-      margin-top:0;
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      letter-spacing: -0.5px;
     }
 
-    input,button{
-      width:100%;
-      padding:12px;
-      margin-top:10px;
-      border-radius:10px;
-      border:1px solid #ccc;
-      box-sizing:border-box;
+    .hero p {
+      margin: 6px 0;
+      color: #eee7da;
+      line-height: 1.4;
     }
 
-    button{
-      background:#16130f;
-      color:white;
-      border:none;
-      cursor:pointer;
-      font-weight:bold;
+    .tagline {
+      font-weight: bold;
+      margin-top: 12px;
+      color: #ffffff !important;
     }
 
-    button:hover{
-      opacity:0.9;
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.04);
     }
 
-    .product-row{
-      border:1px solid #ddd;
-      padding:12px;
-      border-radius:10px;
-      margin-top:10px;
+    h1, h2, h3 {
+      margin-top: 0;
     }
 
-    .quote{
-      background:#faf7f1;
-      padding:12px;
-      border-radius:10px;
-      margin-top:10px;
+    h2 {
+      margin-bottom: 8px;
+    }
+
+    .section-note {
+      color: var(--muted);
+      margin-top: 0;
+      line-height: 1.4;
+    }
+
+    input, textarea, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+      font-family: Arial, sans-serif;
+    }
+
+    button {
+      background: var(--dark);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      opacity: 0.92;
+    }
+
+    .secondary-btn {
+      background: #5f574b;
+    }
+
+    .light-btn {
+      background: #efe7d8;
+      color: var(--dark);
+      border: 1px solid var(--line);
+    }
+
+    .danger-btn {
+      background: var(--danger);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .product-row {
+      border: 1px solid var(--line);
+      padding: 14px;
+      border-radius: 12px;
+      margin-top: 12px;
+      background: var(--soft);
+    }
+
+    .product-row-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .product-row-header strong {
+      font-size: 14px;
+    }
+
+    .remove-product {
+      width: auto;
+      padding: 8px 10px;
+      margin-top: 0;
+      font-size: 12px;
+      background: #8a1f1f;
+    }
+
+    .admin-toolbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .admin-toolbar button {
+      width: auto;
+      min-width: 150px;
+    }
+
+    .quote {
+      background: var(--soft);
+      padding: 16px;
+      border-radius: 14px;
+      margin-top: 14px;
+      border: 1px solid var(--line);
+    }
+
+    .quote-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .quote-title {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .quote-meta {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #e8dfcf;
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--dark);
+      white-space: nowrap;
+    }
+
+    .items-list {
+      margin: 14px 0;
+      padding: 12px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+    }
+
+    .items-list ul {
+      margin: 8px 0 0;
+      padding-left: 20px;
+    }
+
+    .admin-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .admin-actions button {
+      margin-top: 0;
+    }
+
+    .small-label {
+      display: block;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: bold;
+      color: var(--muted);
+    }
+
+    .empty-state {
+      padding: 18px;
+      background: var(--soft);
+      border-radius: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    .message-preview {
+      white-space: pre-wrap;
+      background: #fff;
+      border: 1px dashed var(--line);
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 10px;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 12px;
+      }
+
+      .form-grid,
+      .admin-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .admin-toolbar button {
+        width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 25px;
+      }
     }
   </style>
 </head>
@@ -74,68 +293,93 @@
 
 <div class="container">
 
-  <div class="card">
+  <div class="hero">
     <h1>Rural Quote Finder</h1>
     <p>Modern tools for old-school problems.</p>
+    <p class="tagline">Quote-ready farmers. Local stores. Less phone tag.</p>
   </div>
 
   <div class="card">
     <h2>Request Quote</h2>
+    <p class="section-note">
+      Submit the products you need and Rural Quote Finder will help organise quotes from local rural stores.
+    </p>
 
     <form id="quoteForm">
+      <div class="form-grid">
+        <input type="text" id="farmerName" placeholder="Your Name" required />
+        <input type="text" id="farmerPhone" placeholder="Phone" required />
+      </div>
 
-      <input type="text" id="farmerName" placeholder="Your Name" required />
-      <input type="email" id="farmerEmail" placeholder="Email" required />
-      <input type="text" id="farmerPhone" placeholder="Phone" required />
-      <input type="text" id="farmerLocation" placeholder="Location" required />
+      <div class="form-grid">
+        <input type="email" id="farmerEmail" placeholder="Email" required />
+        <input type="text" id="farmerLocation" placeholder="Town / Location" required />
+      </div>
 
       <div id="products"></div>
 
-      <button type="button" id="addProductBtn">
+      <button type="button" id="addProductBtn" class="secondary-btn">
         Add Product
       </button>
 
       <button type="submit">
         Submit Quote Request
       </button>
-
     </form>
   </div>
 
   <div class="card">
     <h2>Store Registration</h2>
+    <p class="section-note">
+      Rural stores can register their details and service area for future quote requests.
+    </p>
 
     <form id="storeForm">
+      <div class="form-grid">
+        <input type="text" id="storeName" placeholder="Store Name" required />
+        <input type="text" id="contactName" placeholder="Contact Name" required />
+      </div>
 
-      <input type="text" id="storeName" placeholder="Store Name" required />
-      <input type="text" id="contactName" placeholder="Contact Name" required />
-      <input type="email" id="storeEmail" placeholder="Email" required />
-      <input type="text" id="storePhone" placeholder="Phone" required />
-      <input type="number" id="radiusKm" placeholder="Service Radius (km)" required />
-      <input type="text" id="storeLocation" placeholder="Location" required />
+      <div class="form-grid">
+        <input type="email" id="storeEmail" placeholder="Email" required />
+        <input type="text" id="storePhone" placeholder="Phone" required />
+      </div>
+
+      <div class="form-grid">
+        <input type="number" id="radiusKm" placeholder="Service Radius (km)" required />
+        <input type="text" id="storeLocation" placeholder="Store Location" required />
+      </div>
 
       <button type="submit">
         Register Store
       </button>
-
     </form>
   </div>
 
   <div class="card">
-    <h2>Admin View</h2>
+    <h2>Operator / Admin Dashboard</h2>
+    <p class="section-note">
+      Use this section to manage incoming quote requests manually while testing the MVP.
+    </p>
 
-    <button onclick="loadQuotes()">
-      Refresh Quotes
-    </button>
+    <div class="admin-toolbar">
+      <button onclick="loadQuotes()">Refresh Quotes</button>
+      <button onclick="clearAdminSearch()" class="light-btn">Clear Search</button>
+    </div>
+
+    <input
+      type="text"
+      id="adminSearch"
+      placeholder="Search by farmer, location, phone, product..."
+      oninput="renderQuotes()"
+    />
 
     <div id="quotesList"></div>
-
   </div>
 
 </div>
 
 <script>
-
 const SUPABASE_URL = "https://ozyicsnxbgkogbujlvvz.supabase.co";
 const SUPABASE_KEY = "sb_publishable_U6J_w9bJpi2oCFUhcqOIzw_KO-OIrDb";
 
@@ -145,19 +389,75 @@ const supabaseClient = supabase.createClient(
 );
 
 const productsDiv = document.getElementById('products');
+let quoteCounter = 0;
+let allQuotes = [];
+
+const STATUSES = [
+  "New",
+  "Sent to stores",
+  "Waiting on responses",
+  "Quoted back to farmer",
+  "Closed",
+  "Lost / no response"
+];
+
+function escapeHtml(value) {
+  if (value === null || value === undefined) return "";
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function formatDate(value) {
+  if (!value) return "Unknown date";
+  try {
+    return new Date(value).toLocaleString("en-AU", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  } catch {
+    return value;
+  }
+}
+
+function normaliseStatus(status) {
+  if (!status || status.toLowerCase() === "pending") return "New";
+  return status;
+}
 
 function addProductRow() {
+  quoteCounter++;
 
   const row = document.createElement('div');
-
   row.className = 'product-row';
 
   row.innerHTML = `
-    <input type="text" class="product-name" placeholder="Product Name" required />
-    <input type="text" class="product-qty" placeholder="Quantity" required />
+    <div class="product-row-header">
+      <strong>Product ${quoteCounter}</strong>
+      <button type="button" class="remove-product" onclick="removeProductRow(this)">Remove</button>
+    </div>
+    <input type="text" class="product-name" placeholder="Product Name, e.g. hinge joint, drench, fertiliser" required />
+    <input type="text" class="product-qty" placeholder="Quantity, e.g. 10 rolls, 20L, 2 pallets" required />
   `;
 
   productsDiv.appendChild(row);
+}
+
+function removeProductRow(button) {
+  const rows = document.querySelectorAll('.product-row');
+
+  if (rows.length <= 1) {
+    alert("At least one product is required.");
+    return;
+  }
+
+  button.closest('.product-row').remove();
 }
 
 document.getElementById('addProductBtn')
@@ -167,13 +467,34 @@ addProductRow();
 
 document.getElementById('quoteForm')
   .addEventListener('submit', async (e) => {
-
     e.preventDefault();
 
-    const farmerName = document.getElementById('farmerName').value;
-    const farmerEmail = document.getElementById('farmerEmail').value;
-    const farmerPhone = document.getElementById('farmerPhone').value;
-    const farmerLocation = document.getElementById('farmerLocation').value;
+    const farmerName = document.getElementById('farmerName').value.trim();
+    const farmerEmail = document.getElementById('farmerEmail').value.trim();
+    const farmerPhone = document.getElementById('farmerPhone').value.trim();
+    const farmerLocation = document.getElementById('farmerLocation').value.trim();
+
+    const productNames = document.querySelectorAll('.product-name');
+    const productQtys = document.querySelectorAll('.product-qty');
+
+    const items = [];
+
+    productNames.forEach((product, index) => {
+      const productName = product.value.trim();
+      const quantity = productQtys[index].value.trim();
+
+      if (productName && quantity) {
+        items.push({
+          product_name: productName,
+          quantity: quantity
+        });
+      }
+    });
+
+    if (items.length === 0) {
+      alert("Please add at least one product.");
+      return;
+    }
 
     const { data: quoteData, error: quoteError } = await supabaseClient
       .from('quotes')
@@ -182,7 +503,8 @@ document.getElementById('quoteForm')
           farmer_name: farmerName,
           farmer_email: farmerEmail,
           farmer_phone: farmerPhone,
-          farmer_location: farmerLocation
+          farmer_location: farmerLocation,
+          status: "New"
         }
       ])
       .select();
@@ -195,24 +517,14 @@ document.getElementById('quoteForm')
 
     const quoteId = quoteData[0].id;
 
-    const productNames = document.querySelectorAll('.product-name');
-    const productQtys = document.querySelectorAll('.product-qty');
-
-    const items = [];
-
-    productNames.forEach((product, index) => {
-
-      items.push({
-        quote_id: quoteId,
-        product_name: product.value,
-        quantity: productQtys[index].value
-      });
-
-    });
+    const itemsWithQuoteId = items.map(item => ({
+      ...item,
+      quote_id: quoteId
+    }));
 
     const { error: itemError } = await supabaseClient
       .from('quote_items')
-      .insert(items);
+      .insert(itemsWithQuoteId);
 
     if (itemError) {
       alert('Error saving quote items');
@@ -223,30 +535,27 @@ document.getElementById('quoteForm')
     alert('Quote submitted successfully!');
 
     document.getElementById('quoteForm').reset();
-
     productsDiv.innerHTML = '';
-
+    quoteCounter = 0;
     addProductRow();
 
     loadQuotes();
-
 });
 
 document.getElementById('storeForm')
   .addEventListener('submit', async (e) => {
-
     e.preventDefault();
 
     const { error } = await supabaseClient
       .from('stores')
       .insert([
         {
-          store_name: document.getElementById('storeName').value,
-          contact_name: document.getElementById('contactName').value,
-          email: document.getElementById('storeEmail').value,
-          phone: document.getElementById('storePhone').value,
+          store_name: document.getElementById('storeName').value.trim(),
+          contact_name: document.getElementById('contactName').value.trim(),
+          email: document.getElementById('storeEmail').value.trim(),
+          phone: document.getElementById('storePhone').value.trim(),
           radius_km: document.getElementById('radiusKm').value,
-          location: document.getElementById('storeLocation').value
+          location: document.getElementById('storeLocation').value.trim()
         }
       ]);
 
@@ -257,16 +566,12 @@ document.getElementById('storeForm')
     }
 
     alert('Store registered successfully!');
-
     document.getElementById('storeForm').reset();
-
 });
 
 async function loadQuotes() {
-
   const quotesList = document.getElementById('quotesList');
-
-  quotesList.innerHTML = 'Loading...';
+  quotesList.innerHTML = '<div class="empty-state">Loading quotes...</div>';
 
   const { data, error } = await supabaseClient
     .from('quotes')
@@ -277,36 +582,186 @@ async function loadQuotes() {
     .order('created_at', { ascending: false });
 
   if (error) {
-    quotesList.innerHTML = 'Error loading quotes';
+    quotesList.innerHTML = '<div class="empty-state">Error loading quotes. Check console for details.</div>';
     console.error(error);
     return;
   }
 
+  allQuotes = data || [];
+  renderQuotes();
+}
+
+function renderQuotes() {
+  const quotesList = document.getElementById('quotesList');
+  const searchValue = document.getElementById('adminSearch').value.toLowerCase().trim();
+
+  let filteredQuotes = allQuotes;
+
+  if (searchValue) {
+    filteredQuotes = allQuotes.filter(quote => {
+      const itemsText = (quote.quote_items || [])
+        .map(item => `${item.product_name} ${item.quantity}`)
+        .join(" ");
+
+      const combined = `
+        ${quote.farmer_name || ""}
+        ${quote.farmer_email || ""}
+        ${quote.farmer_phone || ""}
+        ${quote.farmer_location || ""}
+        ${quote.status || ""}
+        ${quote.admin_notes || ""}
+        ${itemsText}
+      `.toLowerCase();
+
+      return combined.includes(searchValue);
+    });
+  }
+
   quotesList.innerHTML = '';
 
-  data.forEach((quote) => {
+  if (filteredQuotes.length === 0) {
+    quotesList.innerHTML = '<div class="empty-state">No quotes found.</div>';
+    return;
+  }
+
+  filteredQuotes.forEach((quote) => {
+    const currentStatus = normaliseStatus(quote.status);
+    const items = quote.quote_items || [];
 
     const div = document.createElement('div');
-
     div.className = 'quote';
 
     div.innerHTML = `
-      <strong>${quote.farmer_name}</strong><br/>
-      ${quote.farmer_location}<br/><br/>
+      <div class="quote-top">
+        <div>
+          <h3 class="quote-title">${escapeHtml(quote.farmer_name || "Unknown Farmer")}</h3>
+          <div class="quote-meta">
+            <strong>Location:</strong> ${escapeHtml(quote.farmer_location || "Not supplied")}<br/>
+            <strong>Phone:</strong> ${escapeHtml(quote.farmer_phone || "Not supplied")}<br/>
+            <strong>Email:</strong> ${escapeHtml(quote.farmer_email || "Not supplied")}<br/>
+            <strong>Submitted:</strong> ${escapeHtml(formatDate(quote.created_at))}
+          </div>
+        </div>
 
-      ${quote.quote_items.map(item =>
-        `${item.product_name} - ${item.quantity}`
-      ).join('<br/>')}
+        <span class="status-pill">${escapeHtml(currentStatus)}</span>
+      </div>
+
+      <div class="items-list">
+        <strong>Requested Products</strong>
+        ${
+          items.length
+            ? `<ul>${items.map(item => `
+                <li>${escapeHtml(item.product_name)} — ${escapeHtml(item.quantity)}</li>
+              `).join('')}</ul>`
+            : `<p class="section-note">No quote items found.</p>`
+        }
+      </div>
+
+      <label class="small-label" for="status-${quote.id}">Quote Status</label>
+      <select id="status-${quote.id}">
+        ${STATUSES.map(status => `
+          <option value="${escapeHtml(status)}" ${status === currentStatus ? "selected" : ""}>
+            ${escapeHtml(status)}
+          </option>
+        `).join('')}
+      </select>
+
+      <label class="small-label" for="notes-${quote.id}">Admin Notes</label>
+      <textarea id="notes-${quote.id}" placeholder="Add notes about stores contacted, prices received, follow-up needed...">${escapeHtml(quote.admin_notes || "")}</textarea>
+
+      <div class="admin-actions">
+        <button onclick="saveAdminUpdates(${quote.id})">Save Updates</button>
+        <button class="secondary-btn" onclick="copyStoreMessage(${quote.id})">Copy Store Message</button>
+      </div>
+
+      <div id="message-preview-${quote.id}" class="message-preview" style="display:none;"></div>
     `;
 
     quotesList.appendChild(div);
-
   });
+}
 
+async function saveAdminUpdates(quoteId) {
+  const status = document.getElementById(`status-${quoteId}`).value;
+  const adminNotes = document.getElementById(`notes-${quoteId}`).value;
+
+  const { error } = await supabaseClient
+    .from('quotes')
+    .update({
+      status: status,
+      admin_notes: adminNotes
+    })
+    .eq('id', quoteId);
+
+  if (error) {
+    alert("Error saving admin updates.");
+    console.error(error);
+    return;
+  }
+
+  alert("Admin updates saved.");
+
+  const quote = allQuotes.find(q => q.id === quoteId);
+  if (quote) {
+    quote.status = status;
+    quote.admin_notes = adminNotes;
+  }
+
+  renderQuotes();
+}
+
+function buildStoreMessage(quote) {
+  const items = quote.quote_items || [];
+
+  const itemLines = items.length
+    ? items.map(item => `- ${item.quantity} x ${item.product_name}`).join("\n")
+    : "- No items listed";
+
+  return `New quote request via Rural Quote Finder
+
+Farmer location: ${quote.farmer_location || "Not supplied"}
+
+Requested products:
+${itemLines}
+
+Can you please respond with:
+- price
+- availability
+- pickup or delivery options
+- how long the price is valid for
+
+Farmer contact details are being managed through Rural Quote Finder at this stage.`;
+}
+
+async function copyStoreMessage(quoteId) {
+  const quote = allQuotes.find(q => q.id === quoteId);
+
+  if (!quote) {
+    alert("Quote not found.");
+    return;
+  }
+
+  const message = buildStoreMessage(quote);
+  const preview = document.getElementById(`message-preview-${quoteId}`);
+
+  preview.style.display = "block";
+  preview.textContent = message;
+
+  try {
+    await navigator.clipboard.writeText(message);
+    alert("Store message copied.");
+  } catch (error) {
+    alert("Could not auto-copy. The message is shown below so you can copy it manually.");
+    console.error(error);
+  }
+}
+
+function clearAdminSearch() {
+  document.getElementById('adminSearch').value = "";
+  renderQuotes();
 }
 
 loadQuotes();
-
 </script>
 
 </body>
